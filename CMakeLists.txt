@@ -31,6 +31,11 @@ install(
   DESTINATION include
 )
 
+install(
+  DIRECTORY examples
+  DESTINATION share/${PROJECT_NAME}
+)
+
 # Environment hooks to set GZ_SIM_PLUGIN_PATH when workspace is source
 ament_environment_hooks("${CMAKE_CURRENT_SOURCE_DIR}/env_hooks/gz_led_plugin.sh.in")
 
