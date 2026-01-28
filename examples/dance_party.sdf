@@ -1,0 +1,323 @@
+<?xml version="1.0" ?>
+<!--
+  Gazebo led plugin demo
+
+  Change the led modes by calling the service led_group_name/change_led_mode 
+  with the required mode name as a string
+-->
+
+<sdf version="1.11">
+  <world name="dance_party">
+
+    <physics name="1ms" type="ignored">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+    <plugin
+      filename="gz-sim-physics-system"
+      name="gz::sim::systems::Physics">
+    </plugin>
+    <plugin
+      filename="gz-sim-sensors-system"
+      name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+      <background_color>0.8 0.8 0.8</background_color>
+    </plugin>
+    <plugin
+      filename="gz-sim-user-commands-system"
+      name="gz::sim::systems::UserCommands">
+    </plugin>
+    <plugin
+      filename="gz-sim-scene-broadcaster-system"
+      name="gz::sim::systems::SceneBroadcaster">
+    </plugin>
+
+    <scene>
+      <ambient>0.15 0.15 0.18 1</ambient>
+      <background>0.25 0.25 0.35 1</background>
+      <shadows>true</shadows>
+      <sky>
+        <time>21</time>
+      </sky>
+    </scene>
+
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.2 0.2 0.25 1</diffuse>
+      <specular>0.3 0.3 0.3 1</specular>
+
+      <attenuation>
+        <range>1000</range>
+        <constant>1.0</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+
+      <direction>-0.2 0.1 -0.95</direction>
+    </light>
+
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>0.8 0.8 0.8 1</ambient>
+            <diffuse>0.8 0.8 0.8 1</diffuse>
+            <specular>0.8 0.8 0.8 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <include>
+      <uri>model://tom_dancing</uri>
+      <pose>0 0 0 0 0 0</pose>
+    </include>
+
+
+    <model name="disco_light">
+      <pose>0 -2.0 3.0 0 0 0</pose>
+      <static>true</static>
+      <link name="disco_stand">
+        <pose>0 0 0.6 0 0 0</pose>
+
+        <visual name="disco_stand_visual">
+          <geometry>
+            <cylinder>
+              <radius>0.03</radius>
+              <length>0.6</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.05 0.05 0.05 1</ambient>
+            <diffuse>0.1 0.1 0.1 1</diffuse>
+          </material>
+        </visual>
+      </link>
+      <link name="disco_ball">
+        <pose>0 0 0.35 0 0 0</pose>
+
+        <visual name="disco_ball_visual">
+          <geometry>
+            <sphere>
+              <radius>0.18</radius>
+            </sphere>
+          </geometry>
+          <material>
+            <ambient>0.15 0.15 0.15 1</ambient>
+            <diffuse>0.3 0.3 0.3 1</diffuse>
+            <specular>1.0 1.0 1.0 1</specular>
+          </material>
+        </visual>
+      </link>
+
+      <!-- Red -->
+      <link name="disco_red">
+        <pose>0.18 0 0.35 0 0 0</pose>
+
+        <visual name="disco_red_visual">
+          <geometry>
+            <sphere>
+              <radius>0.06</radius>
+            </sphere>
+          </geometry>
+          <material>
+            <ambient>0.4 0.0 0.0 1</ambient>
+            <diffuse>0.8 0.0 0.0 1</diffuse>
+            <emissive>0.0 0.0 0.0 1</emissive>
+          </material>
+        </visual>
+
+        <light name="disco_red_light" type="point">
+          <pose>0 0 0 0 0 0</pose>
+          <diffuse>1 0 0 1</diffuse>
+          <intensity>4.0</intensity>
+          <attenuation>
+            <range>2.0</range>
+          </attenuation>
+        </light>
+      </link>
+
+      <!-- Green -->
+      <link name="disco_green">
+        <pose>-0.09 0.16 0.35 0 0 0</pose>
+
+        <visual name="disco_green_visual">
+          <geometry>
+            <sphere>
+              <radius>0.06</radius>
+            </sphere>
+          </geometry>
+          <material>
+            <ambient>0.0 0.4 0.0 1</ambient>
+            <diffuse>0.0 0.8 0.0 1</diffuse>
+          </material>
+        </visual>
+
+        <light name="disco_green_light" type="point">
+          <diffuse>0 1 0 1</diffuse>
+          <intensity>4.0</intensity>
+        </light>
+      </link>
+
+      <!-- Blue -->
+      <link name="disco_blue">
+        <pose>-0.09 -0.16 0.35 0 0 0</pose>
+
+        <visual name="disco_blue_visual">
+          <geometry>
+            <sphere>
+              <radius>0.06</radius>
+            </sphere>
+          </geometry>
+          <material>
+            <ambient>0.0 0.0 0.4 1</ambient>
+            <diffuse>0.0 0.0 0.8 1</diffuse>
+          </material>
+        </visual>
+
+        <light name="disco_blue_light" type="point">
+          <diffuse>0 0 1 1</diffuse>
+          <intensity>4.0</intensity>
+        </light>
+      </link>
+
+      <joint name="stand_to_ball" type="fixed">
+        <parent>disco_stand</parent>
+        <child>disco_ball</child>
+      </joint>
+
+      <joint name="ball_to_red" type="fixed">
+        <parent>disco_ball</parent>
+        <child>disco_red</child>
+      </joint>
+
+      <joint name="ball_to_green" type="fixed">
+        <parent>disco_ball</parent>
+        <child>disco_green</child>
+      </joint>
+
+      <joint name="ball_to_blue" type="fixed">
+        <parent>disco_ball</parent>
+        <child>disco_blue</child>
+      </joint>
+
+      <plugin
+        filename="libgz_led_plugin.so"
+        name="gz::sim::systems::LedPlugin">
+
+        <led_group_name>disco_light</led_group_name>
+
+        <!-- LEDs -->
+        <led name="red_led">
+          <visual_name>disco_red::disco_red_visual</visual_name>
+          <light_name>disco_red::disco_red_light</light_name>
+        </led>
+
+        <led name="green_led">
+          <visual_name>disco_green::disco_green_visual</visual_name>
+          <light_name>disco_green::disco_green_light</light_name>
+        </led>
+
+        <led name="blue_led">
+          <visual_name>disco_blue::disco_blue_visual</visual_name>
+          <light_name>disco_blue::disco_blue_light</light_name>
+        </led>
+
+        <default_mode>party</default_mode>
+
+        <!-- RGB cycle -->
+        <mode name="rgb_cycle">
+          <step>
+            <color>1 0 0 1</color>
+            <on_time>0.3</on_time>
+            <intensity>4.0</intensity>
+          </step>
+          <step>
+            <color>0 1 0 1</color>
+            <on_time>0.3</on_time>
+            <intensity>4.0</intensity>
+          </step>
+          <step>
+            <color>0 0 1 1</color>
+            <on_time>0.3</on_time>
+            <intensity>4.0</intensity>
+          </step>
+        </mode>
+
+        <mode name="strobe">
+          <step>
+            <color>1 1 1 1</color>
+            <on_time>0.1</on_time>
+            <intensity>6.0</intensity>
+          </step>
+          <step>
+            <color>0 0 0 1</color>
+            <on_time>0.1</on_time>
+            <intensity>0.0</intensity>
+          </step>
+        </mode>
+
+        <mode name="party">
+          <step>
+            <color>1 0 1 1</color>
+            <on_time>0.2</on_time>
+            <intensity>5.0</intensity>
+          </step>
+          <step>
+            <color>0 1 1 1</color>
+            <on_time>0.2</on_time>
+            <intensity>5.0</intensity>
+          </step>
+          <step>
+            <color>1 1 0 1</color>
+            <on_time>0.2</on_time>
+            <intensity>5.0</intensity>
+          </step>
+        </mode>
+
+        <mode name="ambient_wave">
+          <step>
+            <color>0.2 0.4 0.6 1</color>
+            <on_time>2.5</on_time>
+            <intensity>1.2</intensity>
+          </step>
+
+          <step>
+            <color>0.3 0.6 0.5 1</color>
+            <on_time>2.5</on_time>
+            <intensity>1.4</intensity>
+          </step>
+
+          <step>
+            <color>0.4 0.3 0.6 1</color>
+            <on_time>2.5</on_time>
+            <intensity>1.3</intensity>
+          </step>
+
+          <step>
+            <color>0.25 0.45 0.35 1</color>
+            <on_time>2.5</on_time>
+            <intensity>1.1</intensity>
+          </step>
+        </mode>
+
+      </plugin>
+    </model>
+  </world>
+</sdf>
