@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<sdf version="1.11">
+  <actor name="tom_dancing">
+    <skin>
+      <filename>model://tom_dancing/meshes/tom_rig.dae</filename>
+      <scale>1.0</scale>
+    </skin>
+    <animation name="dance">
+      <filename>model://tom_dancing/meshes/tom_rig.dae</filename>
+      <interpolate_x>true</interpolate_x>
+      <scale>1.0</scale>
+    </animation>
+    <script>
+      <loop>true</loop>
+      <auto_start>true</auto_start>
+      <animation name="dance">
+        <time>0</time>
+      </animation>
+    </script>
+  </actor>
+</sdf>
