@@ -30,6 +30,14 @@ _Demo gif from the [led_plugin.sdf](examples/led_plugin.sdf) example world showi
 
 ## Installation
 
+### Requirements
+
+1. Gazebo Jetty (Binary install or Source install, both should work)
+2. Ubuntu 24.04
+3. `colcon` for building the workspace
+
+> **Note**: Ideally, the plugin should work fine on other verions of Gazebo and Ubuntu but I have not tested it personally with other configurations yet. If you are planning to run the plugin on any other configuration, feel free to open up a PR with required fixes (if any) and update this part of the README.
+
 ### From Source
 
 1. Clone the repository into your ROS workspace:
