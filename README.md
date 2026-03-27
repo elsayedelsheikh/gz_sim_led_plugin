@@ -4,13 +4,13 @@ A Gazebo system plugin for simulating LED systems using visuals and lights. This
 
 The plugin introduces the concept of LED modes, allowing users to define different LED behaviors in SDF. A runtime mode change service is provided to switch between these modes dynamically (for example, transitioning from an idle mode to a fault or emergency mode).
 
+![LED Plugin Demo world](media/gazebo_led_plugin_demo.gif)
+_Demo gif from the [led_plugin.sdf](examples/led_plugin.sdf) example world showing 2 robots and an industrial tower lamp model each having different LED group with different modes._
+
 ![Dance Party Demo Party mode](media/dance_party_party_mode.gif)
 _Demo gif from the [dance_party.sdf](examples/dance_party.sdf) example world which creates a Disco Light model for, well, a dance party._
 
 > BTW: The Tom model was taken from [Sketchfab](https://sketchfab.com/3d-models/tom-multiversus-tom-and-jerry-4996154491b14356a8ebc40ab62179ab) and animated using Mixamo and Blender. The SDF model is available in this repo and on [Gazebo Fuel](https://app.gazebosim.org/jasmeetsingh/fuel/models/Dancing%20Tom%20Cat) as well ;)
-
-![LED Plugin Demo world](media/gazebo_led_plugin_demo.gif)
-_Demo gif from the [led_plugin.sdf](examples/led_plugin.sdf) example world showing 2 robots and an industrial tower lamp model each having different LED group with different modes._
 
 ## Terminology
 
@@ -103,7 +103,7 @@ The following snippet is from the [led_plugin.sdf](examples/led_plugin.sdf) towe
     </default_state>
   </led>
 
-  <default_mode>ready</default_mode>
+  <startup_mode>ready</startup_mode>
 
   <!-- Mode Descriptions -->
   <mode name="ready">
@@ -182,7 +182,7 @@ The snippet above describes an LED using the `<led>` element. Each LED can be de
 A `<default_state>` element is used when the LED is inactive or .reset
 
 ```xml
-  <default_mode>ready</default_mode>
+  <startup_mode>ready</startup_mode>
 
   <!-- Mode Descriptions -->
   <mode name="ready">
@@ -202,7 +202,7 @@ A `<default_state>` element is used when the LED is inactive or .reset
   </mode>
 ```
 
-This snippet specifies the `<default_mode>` which is when the simulation starts. If no default mode is specified, the first described mode is used as the default.
+This snippet specifies the `<startup_mode>` which is set by default and used when the simulation starts. If no startup mode is specified, the first described mode is used as the startup mode by default.
 
 An LED Mode (in this case "ready" mode) is defined using a `<mode>` tag. This specific mode specifies the `ready_led` as the only active LED using the `<active_leds>` tag. If no active LEDs are specified, all the LEDs are used by default. The actual behavior of the mode is defined using the `<step>` tags which are played sequentially by the plugin in the order they are described.
 
