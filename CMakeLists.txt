@@ -2,11 +2,13 @@ cmake_minimum_required(VERSION 3.22)
 project(gz_led_plugin)
 
 find_package(ament_cmake REQUIRED)
-find_package(gz-sim REQUIRED)
-find_package(gz-math REQUIRED)
-find_package(gz-msgs REQUIRED)
-find_package(gz-plugin REQUIRED)
-find_package(gz-transport REQUIRED)
+find_package(gz-sim8 REQUIRED)
+find_package(gz-math7 REQUIRED)
+find_package(gz-msgs10 REQUIRED)
+find_package(gz-plugin2 REQUIRED)
+find_package(gz-transport13 REQUIRED)
+
+set(GZ_SIM_VER ${gz-sim8_VERSION_MAJOR})
 
 # Add the plugin shared library
 add_library(${PROJECT_NAME} SHARED src/LedPlugin.cpp)
@@ -15,7 +17,7 @@ target_include_directories(${PROJECT_NAME}
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
 )
-target_link_libraries(${PROJECT_NAME} PUBLIC gz-sim::gz-sim)
+target_link_libraries(${PROJECT_NAME} PUBLIC gz-sim8::gz-sim8)
 
 # Install
 install(
